@@ -25,7 +25,6 @@
 ## 3. 첫 번째 사용 (First In, First Out, FIFO)
 > 가장 먼저 메모리에 들어온 페이지를 교체
 
-
 ## 4. 가장 적게 사용된 (Least Frequently Used, LFU)
 > 각 페이지의 사용 빈도를 추적하고, 가장 적게 사용된 페이지를 교체
 
