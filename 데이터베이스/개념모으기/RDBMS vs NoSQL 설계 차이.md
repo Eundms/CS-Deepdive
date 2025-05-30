@@ -1,0 +1,1 @@
+> MySQL / MongoDB 사용 이유와 상황별 선택

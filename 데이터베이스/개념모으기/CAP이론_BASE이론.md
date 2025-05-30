@@ -1,0 +1,1 @@
+> Zookeeper, Redis, Kafka 같은 분산 시스템 이해에 필수

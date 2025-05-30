@@ -1,0 +1,1 @@
+> degrade feature, Gateway 장애 대응
