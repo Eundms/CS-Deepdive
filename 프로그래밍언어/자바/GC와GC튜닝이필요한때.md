@@ -78,4 +78,22 @@ https://dev.java/learn/jvm/tool/garbage-collection/
 
 ### Throghput goal
 - Throughput goal: GC time과 application time을 비교해서 특정 비율을 맞추도록 하는 것
-    https://youtu.be/1glyhyChmmk?list=PLcXyemr8ZeoSUPUhwqtxe1oztltsJhxBY&t=5223 
+    - GC time과 application time을 비교해서 특정 비율을 맞추도록 하는 것
+- `-XX:GCTimeRatio=nnn`로 지정. `GC Time Ratio = 1/(1+nnn)`로 목표를 설정하는 것
+
+## Minimum Footprint
+- Footprint : 프로세스가 현재 사용중인 메모리의 크기. heap 크기가 전체 메모리 크기에 가장 영향력이 클 것임
+- `throughput goal`과 `maximum pause-time goal`이 모두 충족되면 garbage collector는 heap 사이즈를 조금씩 줄인다 
+    - 불필요하게 점유하는 메모리를 줄여서 다른 프로세스들도 메모리를 사용할 수 있게 해주기 위함
+    - 두 goal 중에 하나를 충족하지 못할 때까지 줄여나감 (예외 없이 throughput goal이 먼저 깨짐)
+- minimum과 maximum heap size는 각각 `-Xms=nnn`와 `-Xms=mmm` 옵션으로 지정할 수 있다
+
+
+## GC 튜닝 가이드
+1. throughput goal을 잡는다 
+2. max heap size까지 써도 throughput goal을 달성하지 못하면 RAM 크기에 근접하게 max heap size를 잡는다 (단, swap은 안 일어나게)
+3. 그럼에도 여전히 throughput goal 달성을 못하면 RAM 대비 목표 자체가 너무 높은 것
+4. throughput goal을 달성했는데 pause time이 너무 길면 maximum pause-time goal을 지정한다.
+5. maximum pause-time goal을 지정하면 throughput goal이 충족되지 않을 수 있다. 그러므로 적당한 타협이 필요하다
+  - throughput goal과 maximum pause-time goal/minimum footprint는 trade off 관계다
+  - 서버 애플리케이션처럼 -Xms = -Xmx로 지정하는 경우에는 이 튜닝 가이드의 효용성이 크진 않다.
